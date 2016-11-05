@@ -1,16 +1,20 @@
 package com.appusi.usiunidaddeserviciosinformaticos;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -53,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Proximamente", Toast.LENGTH_SHORT).show();
+
+                if(rdButton_salas.isChecked()){
+                    Intent intent = new Intent(MainActivity.this,SalasActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -64,4 +73,27 @@ public class MainActivity extends AppCompatActivity {
         String fecha = "" + dateFormat.format(fechaActual);
         txt_fecha_hoy_date.setText(fecha);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.main_pref_menu:
+                Toast.makeText(this,"preferencias",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.main_ace_de_menu:
+                Toast.makeText(this,"acerca de",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
